@@ -4,12 +4,13 @@ import (
 	"BasicCrud/initilizers"
 	"BasicCrud/models"
 	"log"
+	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
 
 func PostCreate(c *gin.Context) {
-	//get data from the req body
+
 	var PostBody struct {
 		Title string
 		Body  string
@@ -35,7 +36,7 @@ func PostCreate(c *gin.Context) {
 }
 
 func GetPosts(c *gin.Context) {
-	//create a slice of receving struct
+
 	var posts []models.Post
 	//Get the posts
 	result := initilizers.DB.Find(&posts)
@@ -52,7 +53,7 @@ func GetPosts(c *gin.Context) {
 }
 
 func GetSinglePosts(c *gin.Context) {
-	// request data bind
+
 	id := c.Param("id")
 
 	//create a slice of receving struct
@@ -71,7 +72,7 @@ func GetSinglePosts(c *gin.Context) {
 }
 
 func UpdatePost(c *gin.Context) {
-	//get the id
+
 	id := c.Param("id")
 
 	//get the body of req data
@@ -99,12 +100,19 @@ func UpdatePost(c *gin.Context) {
 }
 
 func DeletePost(c *gin.Context) {
-	//get the id
 	id := c.Param("id")
 	//delete the post
 	initilizers.DB.Delete(&models.Post{}, id)
 	//respond
 	c.JSON(200, gin.H{
 		"Deleted Post": id,
+	})
+}
+
+func ValidateUser(c *gin.Context) {
+	token, _ := c.Get("user")
+	c.JSON(http.StatusOK, gin.H{
+		"msg":  "Validated the user",
+		"user": token,
 	})
 }
