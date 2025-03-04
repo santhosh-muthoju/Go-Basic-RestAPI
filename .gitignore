@@ -1,3 +1,6 @@
-./BasicCrud.exe
-./.env
-.env/*
+# Ignore executable files
+BasicCrud.exe
+BasicCrud.exe~
+
+# Ignore environment-specific files
+.env
