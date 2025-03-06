@@ -110,9 +110,9 @@ func DeletePost(c *gin.Context) {
 }
 
 func ValidateUser(c *gin.Context) {
-	token, _ := c.Get("user")
+	user, _ := c.Get("user")
 	c.JSON(http.StatusOK, gin.H{
 		"msg":  "Validated the user",
-		"user": token,
+		"user": user,
 	})
 }
